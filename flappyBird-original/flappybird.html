@@ -28,13 +28,29 @@
             top: 100px;
             left: 100px;
         }
+        .bar {
+            background-color: #aaa;
+            position: absolute;
+            top: 0px;
+            left:0px;
+            z-index: 5;
+        }
     </style>
 </head>
 
 <body>
     <div id="game">
+        <div class="bar">
+            <div id="score">
+                score: 0
+            </div>
+            <button id="start"> start </button>
+            <button id="restart"> restart </button>
+        </div>
+        
         <div id="bird"></div>
     </div>
+    
     <script>
         // 让小鸟飞起来
         // 移动的背景
@@ -44,8 +60,11 @@
         // 获取相应的元素
         var game = document.getElementById('game');
         var birdEle = document.getElementById('bird');
+        var btnSt=document.getElementById('start')
+        var btnRSt=document.getElementById('restart')
         // 初始化背景图的值
         // the original loc of background sky
+        var score=0
         var sky = {
             x: 0
         }
@@ -59,8 +78,37 @@
         }
         // 游戏的状态
         // the begining satus of the game is runing
-        var running = true;
-        setInterval(function () {
+        var running = false;
+        var alreadybegin
+        btnSt.onclick=()=>{
+           if(alreadybegin==true) return
+            running = true;
+            alreadybegin=true
+        }
+        
+        btnRSt.onclick=()=>{
+            history.go(0)
+            // if(running=true) running=false
+            // // clearInterval(interval1)
+            
+            // sky.x=0
+            // bird.x=birdEle.offsetLeft
+            // bird.y=birdEle.offsetTop
+            // let uselessPipe = document.getElementsByTagName("p");
+         
+            // while(uselessPipe.length>0){
+            //     game.removeChild(uselessPipe[0]);
+            // }
+            // birdEle.style.top='100px'
+            // birdEle.style.left='100px'
+
+            // createPipe(400);
+            // createPipe(600);
+            // createPipe(800);
+            // createPipe(1000);
+            
+        }
+        let interval1 = setInterval(function () {
             if (running) {
                 // 移动背景让小鸟实现水平运动
                 // moving the background
@@ -77,7 +125,7 @@
                 if (bird.y + birdEle.offsetHeight > 600) {
                     running = false;
                     bird.y = 600 - birdEle.offsetHeight;
-                    console.log(bird.y)
+                    
                 }
 
                 birdEle.style.top = bird.y + 'px';
@@ -98,7 +146,7 @@
             pipe.uHeight = 200 + parseInt(Math.random() * 100);
             pipe.dHeight = 600 - pipe.uHeight - 200;
             pipe.dTop = pipe.uHeight + 200;
-            var uPipe = document.createElement('div');
+            var uPipe = document.createElement('p');
             uPipe.style.width = '52px';
             uPipe.style.height = pipe.uHeight + 'px';
             uPipe.style.background = 'url("./images/pipe2.png") no-repeat center bottom';
@@ -107,7 +155,7 @@
             uPipe.style.left = pipe.x + 'px';
             game.appendChild(uPipe);
 
-            var dPipe = document.createElement('div');
+            var dPipe = document.createElement('p');
             dPipe.style.width = '52px';
             dPipe.style.height = pipe.dHeight + 'px';
             dPipe.style.background = 'url("./images/pipe1.png") no-repeat center  top';
@@ -117,7 +165,7 @@
             game.appendChild(dPipe);
             // 让管道运动起来
             // moving pipe
-            setInterval(function () {
+             let interval2 = setInterval(function () {
                 if (running) {
                     pipe.x -= 2;
                     uPipe.style.left = pipe.x + 'px';
@@ -129,6 +177,12 @@
                     var dCheck = bird.x + 34 > pipe.x && bird.x < pipe.x + 52 && bird.y > pipe.uHeight + 200;
                     if (uCheck || dCheck) {
                         running = false;
+                        return
+                    }
+                    if( bird.x==pipe.x){
+                        score+=1
+                        console.log(score)
+                        document.getElementById('score').innerHTML='score: ' + score
                     }
                 }
             }, 30)
