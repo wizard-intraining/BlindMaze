@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#game {
+    width: 800px;
+    height: 600px;
+    background: url('../images/sky.png');
+    position: relative;
+    overflow: hidden;
+}
+
+#bird {
+    width: 34px;
+    height: 25px;
+    background: url('../images/birds.png') -8px -10px no-repeat;
+    position: absolute;
+    top: 100px;
+    left: 100px;
+}
+.bar {
+    background-color: #aaa;
+    position: absolute;
+    top: 0px;
+    left:0px;
+    z-index: 5;
+}
