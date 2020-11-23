@@ -5,9 +5,11 @@
 // 定时器
 // 动画原理 leader = leader + step
 // 获取相应的元素
+
 var game = document.getElementById('game');
 var birdEle = document.getElementById('bird');
 var btnSt = document.getElementById('start')
+var btnStSpeach = document.getElementById('start-speach')
 var btnRSt = document.getElementById('restart')
 // 初始化背景图的值
 // the original loc of background sky
@@ -28,10 +30,12 @@ var bird = {
 var running = false;
 var alreadybegin
 btnSt.onclick = () => {
-    console.log("clicked")
     if (alreadybegin == true) return
     running = true;
     alreadybegin = true
+}
+btnStSpeach.onclick = () => {
+    recognition.start()
 }
 
 btnRSt.onclick = () => {
@@ -64,7 +68,7 @@ let interval1 = setInterval(function () {
         game.style.backgroundPositionX = sky.x + 'px';
         // 实现小鸟的上下运动
         // the gravity of the bird
-        bird.speedY += 1;
+        bird.speedY += 0.9;
         bird.y += bird.speedY;
         if (bird.y < 0) {
             running = false;
@@ -84,6 +88,11 @@ let interval1 = setInterval(function () {
 // this is the trigger of fly up action
 document.onclick = function () {
     bird.speedY = -10;
+}
+document.body.onkeyup = function (e) {
+    if (e.keyCode == 32) {
+        bird.speedY = -10;
+    }
 }
 // 创建管道
 // create Pipe
@@ -139,3 +148,45 @@ createPipe(400);
 createPipe(600);
 createPipe(800);
 createPipe(1000);
+
+/* Speach recoginition */
+var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
+var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
+var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
+
+var grammar = '#JSGF V1.0;'
+var message = document.querySelector('#message')
+var recognition = new SpeechRecognition();
+var speechRecognitionList = new SpeechGrammarList();
+speechRecognitionList.addFromString(grammar, 1);
+
+recognition.grammars = speechRecognitionList
+recognition.lang = 'en-US'
+recognition.interimResults = false
+
+recognition.onresult = function (event) {
+    var last = event.results.length - 1;
+    var command = event.results[last][0].transcript;
+    message.textContent = 'Voice Input: ' + command + '.';
+
+    if (command.toLowerCase() === 'jump,') {
+        bird.speedY = -10;
+    }
+    else if (command.toLowerCase() === 'jumps') {
+        bird.speedY = -10;
+    }
+
+    else if (command.toLowerCase() === 'jump') {
+        bird.speedY = -10;
+    }
+    else if (command.toLowerCase() === 'up') {
+        bird.speedY = -10;
+    }
+
+};
+recognition.onspeechend = function () {
+    //recognition.stop()
+}
+recognition.onerror = function (event) {
+    message.textContent = 'Error occurred in recognition' + event.error
+}
