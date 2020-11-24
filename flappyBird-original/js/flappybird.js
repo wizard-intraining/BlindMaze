@@ -106,7 +106,7 @@ function createPipe(position) {
     var uPipe = document.createElement('p');
     uPipe.style.width = '52px';
     uPipe.style.height = pipe.uHeight + 'px';
-    uPipe.style.background = 'url("./images/pipe2.png") no-repeat center bottom';
+    uPipe.style.background = 'url("./images/forest/pipe2.png") no-repeat center bottom';
     uPipe.style.position = 'absolute';
     uPipe.style.top = '0px';
     uPipe.style.left = pipe.x + 'px';
@@ -115,7 +115,7 @@ function createPipe(position) {
     var dPipe = document.createElement('p');
     dPipe.style.width = '52px';
     dPipe.style.height = pipe.dHeight + 'px';
-    dPipe.style.background = 'url("./images/pipe1.png") no-repeat center  top';
+    dPipe.style.background = 'url("./images/forest/pipe1.png") no-repeat center  top';
     dPipe.style.position = 'absolute';
     dPipe.style.top = pipe.dTop + 'px';
     dPipe.style.left = pipe.x + 'px';

@@ -6,7 +6,7 @@
 #game {
     width: 800px;
     height: 600px;
-    background: url('../images/sky.png');
+    background: url('../images/forest/sky.png');
     position: relative;
     overflow: hidden;
 }
@@ -14,7 +14,7 @@
 #bird {
     width: 34px;
     height: 25px;
-    background: url('../images/birds.png') -8px -10px no-repeat;
+    background: url('../images/forest/birds.png') -8px -10px no-repeat;
     position: absolute;
     top: 100px;
     left: 100px;
